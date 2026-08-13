@@ -1,0 +1,1 @@
+DevOps Phase 14 capstone focuses on Qdrant vector retrieval, RAGAS evaluation, and local embeddings.

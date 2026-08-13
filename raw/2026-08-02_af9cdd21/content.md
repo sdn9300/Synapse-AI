@@ -1,0 +1,1 @@
+Phase 1 verification note: Testing single command capture for text.

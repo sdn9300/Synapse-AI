@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecondSelf — Interactive Knowledge Graph</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0e1117;
+      color: #e0e0e0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #mynetwork {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1a1d24 0%, #0e1117 100%);
+    }
+    #legend {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(22, 27, 34, 0.85);
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    #legend h4 {
+      margin-bottom: 8px;
+      color: #58a6ff;
+      font-size: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    #tooltip {
+      position: absolute;
+      display: none;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 12px;
+      max-width: 320px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      z-index: 20;
+      pointer-events: none;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    #tooltip h3 {
+      font-size: 14px;
+      color: #58a6ff;
+      margin-bottom: 6px;
+    }
+    #tooltip .tag {
+      display: inline-block;
+      background: #21262d;
+      color: #8b949e;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="legend">
+    <h4>PARA Knowledge Clusters</h4>
+    <div class="legend-item"><div class="legend-color" style="background:#4CAF50;"></div>Projects</div>
+    <div class="legend-item"><div class="legend-color" style="background:#2196F3;"></div>Areas</div>
+    <div class="legend-item"><div class="legend-color" style="background:#FF9800;"></div>Resources</div>
+    <div class="legend-item"><div class="legend-color" style="background:#9E9E9E;"></div>Archives</div>
+  </div>
+
+  <div id="tooltip"></div>
+  <div id="mynetwork"></div>
+
+  <script type="text/javascript">
+    window.SECONDSELF_GRAPH_DATA = null;
+
+    async function initGraph() {
+      try {
+
+        const graphData = window.SECONDSELF_GRAPH_DATA || await (await fetch('/data/graph.json?t=' + new Date().getTime())).json();
+
+        const nodes = new vis.DataSet(graphData.nodes.map(n => ({
+          id: n.id,
+          label: n.label,
+          group: n.group,
+          color: {
+            background: n.color || '#2196F3',
+            border: '#ffffff',
+            highlight: { background: '#58a6ff', border: '#ffffff' }
+          },
+          font: { color: '#e0e0e0', size: 14 },
+          summary: n.summary,
+          content_preview: n.content_preview,
+          tags: n.tags || []
+        })));
+
+        const edges = new vis.DataSet(graphData.edges.map(e => ({
+          from: e.source,
+          to: e.target,
+          color: { color: 'rgba(139, 148, 158, 0.4)', highlight: '#58a6ff' },
+          width: 1.5
+        })));
+
+        const container = document.getElementById('mynetwork');
+        const data = { nodes: nodes, edges: edges };
+        const options = {
+          nodes: {
+            shape: 'dot',
+            size: 18,
+            borderWidth: 2,
+            shadow: true
+          },
+          edges: {
+            smooth: { type: 'continuous' }
+          },
+          physics: {
+            barnesHut: {
+              gravitationalConstant: -7000,
+              centralGravity: 0.3,
+              springLength: 140,
+              springConstant: 0.04
+            },
+            maxVelocity: 50,
+            solver: 'barnesHut',
+            timestep: 0.5,
+            stabilization: { iterations: 150 }
+          },
+          interaction: {
+            hover: true,
+            tooltipDelay: 200,
+            hideEdgesOnDrag: false
+          }
+        };
+
+        const network = new vis.Network(container, data, options);
+
+        const tooltip = document.getElementById('tooltip');
+
+        network.on("hoverNode", function (params) {
+          const node = nodes.get(params.node);
+          if (node) {
+            let tooltipText = "[" + node.group + "] " + node.id + " | " + node.summary + " | " + node.content_preview;
+            tooltip.textContent = tooltipText;
+            tooltip.style.display = "block";
+          }
+        });
+
+        network.on("blurNode", function () {
+          tooltip.style.display = "none";
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (tooltip.style.display === "block") {
+            tooltip.style.left = (e.clientX + 15) + "px";
+            tooltip.style.top = (e.clientY + 15) + "px";
+          }
+        });
+
+      } catch (err) {
+        console.error("Failed to load graph data:", err);
+      }
+    }
+
+    window.addEventListener("load", initGraph);
+  </script>
+</body>
+</html>
+

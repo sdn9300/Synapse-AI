@@ -1,0 +1,1 @@
+Agentic AI Stage 03 specialization requires building autonomous ingest, link, lint, and digest loops.

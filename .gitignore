@@ -1,0 +1,24 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment & Secrets
+.env
+
+# Data & Pickled Index
+data/embeddings.pkl
+
+# System
+.DS_Store
+Thumbs.db
+
+# Runtime scratch files & uploads
+data/uploads/
+
+# Course Notes & PDF Documents (Do not push to public GitHub)
+*.pdf
+Week_*_Session_*_Note.*

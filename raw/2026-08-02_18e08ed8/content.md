@@ -1,0 +1,1 @@
+Memory Module Agent #8 in AI Job Agent Architecture reuses SecondSelf infrastructure.

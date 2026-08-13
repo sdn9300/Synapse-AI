@@ -1,0 +1,234 @@
+{
+  "nodes": [
+    {
+      "id": "18e08ed8",
+      "label": "Memory Module Agent #8 in AI Job Agent Architecture reuses S",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "architecture"
+      ],
+      "summary": "Memory Module Agent #8 in AI Job Agent Architecture reuses SecondSelf infrastructure.",
+      "content_preview": "Memory Module Agent #8 in AI Job Agent Architecture reuses SecondSelf infrastructure.",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "1ed3b5b3",
+      "label": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "architecture",
+        "embeddings",
+        "graph",
+        "groq",
+        "rag",
+        "streamlit"
+      ],
+      "summary": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)",
+      "content_preview": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)  **Document Version:** 1.0   **Status:** Approved Specification   **System Name:** SecondSelf \u2014 Personal AI Second Brain & Karpathy-Pattern...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "2b119eaf",
+      "label": "SecondSelf Phase 0 Foundation setup completed successfully w",
+      "para": "Archives",
+      "tags": [
+        "rag"
+      ],
+      "summary": "SecondSelf Phase 0 Foundation setup completed successfully with storage and models lib.",
+      "content_preview": "SecondSelf Phase 0 Foundation setup completed successfully with storage and models lib.",
+      "group": "Archives",
+      "color": "#9E9E9E"
+    },
+    {
+      "id": "3d262007",
+      "label": "# SCHEMA.md \u2014 Second Brain Conventions",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "embeddings",
+        "devops",
+        "groq",
+        "graph",
+        "architecture"
+      ],
+      "summary": "# SCHEMA.md \u2014 Second Brain Conventions",
+      "content_preview": "# SCHEMA.md \u2014 Second Brain Conventions  ## Folder Organization (PARA Method) - `raw/`: Immutable source of truth \u2014 captured notes, links, dropped files. Agent reads, never edits. - `wiki/Projects/`: Y...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "5522794d",
+      "label": "Agentic AI Stage 03 specialization requires building autonom",
+      "para": "Areas",
+      "tags": [
+        "ai"
+      ],
+      "summary": "Agentic AI Stage 03 specialization requires building autonomous ingest, link, lint, and digest loops.",
+      "content_preview": "Agentic AI Stage 03 specialization requires building autonomous ingest, link, lint, and digest loops.",
+      "group": "Areas",
+      "color": "#2196F3"
+    },
+    {
+      "id": "5c9f9ff1",
+      "label": "URL: https://github.com/langchain-ai/langgraph",
+      "para": "Resources",
+      "tags": [
+        "ai",
+        "rag",
+        "graph"
+      ],
+      "summary": "URL: https://github.com/langchain-ai/langgraph",
+      "content_preview": "URL: https://github.com/langchain-ai/langgraph Notes: Stateful agent orchestration framework   Web Page Content: GitHub - langchain-ai/langgraph: Build resilient agents. \u00b7 GitHub Skip to content You s...",
+      "group": "Resources",
+      "color": "#FF9800"
+    },
+    {
+      "id": "7833144e",
+      "label": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "architecture",
+        "embeddings",
+        "graph",
+        "groq",
+        "rag",
+        "streamlit"
+      ],
+      "summary": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)",
+      "content_preview": "# PROBLEM STATEMENT \u2014 SECONDSELF (PERSONAL AI SECOND BRAIN)  **Document Version:** 1.0   **Status:** Approved Specification   **System Name:** SecondSelf \u2014 Personal AI Second Brain & Karpathy-Pattern...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "79a3f2bc",
+      "label": "DevOps Phase 14 capstone focuses on Qdrant vector retrieval,",
+      "para": "Areas",
+      "tags": [
+        "rag",
+        "embeddings",
+        "devops"
+      ],
+      "summary": "DevOps Phase 14 capstone focuses on Qdrant vector retrieval, RAGAS evaluation, and local embeddings.",
+      "content_preview": "DevOps Phase 14 capstone focuses on Qdrant vector retrieval, RAGAS evaluation, and local embeddings.",
+      "group": "Areas",
+      "color": "#2196F3"
+    },
+    {
+      "id": "964fad17",
+      "label": "URL: https://github.com/visjs/vis-network",
+      "para": "Projects",
+      "tags": [
+        "graph"
+      ],
+      "summary": "URL: https://github.com/visjs/vis-network",
+      "content_preview": "URL: https://github.com/visjs/vis-network Notes: JavaScript force-directed graph library   Web Page Content: GitHub - visjs/vis-network: :dizzy: Display dynamic, automatically organised, customizable...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "a65b0e75",
+      "label": "URL: https://huggingface.co/sentence-transformers/all-MiniLM",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "rag",
+        "embeddings",
+        "graph"
+      ],
+      "summary": "URL: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "content_preview": "URL: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 Notes: Local embedding model lightweight for 8GB RAM   Web Page Content: sentence-transformers/all-MiniLM-L6-v2 \u00b7 Hugging Face all-Mi...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "ad8b907b",
+      "label": "URL: https://console.groq.com/docs",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "groq",
+        "python"
+      ],
+      "summary": "URL: https://console.groq.com/docs",
+      "content_preview": "URL: https://console.groq.com/docs Notes: Groq Llama-3.1-8b-instant inference API   Web Page Content: Overview - GroqDocs Docs Login Log In Documentation Docs API Reference Search Docs Getting Started...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "af9cdd21",
+      "label": "Phase 1 verification note: Testing single command capture fo",
+      "para": "Archives",
+      "tags": [
+        "note",
+        "note"
+      ],
+      "summary": "Phase 1 verification note: Testing single command capture for text.",
+      "content_preview": "Phase 1 verification note: Testing single command capture for text.",
+      "group": "Archives",
+      "color": "#9E9E9E"
+    },
+    {
+      "id": "e476c9f1",
+      "label": "# SYSTEM ARCHITECTURE PLAN \u2014 SECONDSELF",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "architecture",
+        "embeddings",
+        "graph",
+        "groq",
+        "python",
+        "rag",
+        "streamlit"
+      ],
+      "summary": "# SYSTEM ARCHITECTURE PLAN \u2014 SECONDSELF",
+      "content_preview": "# SYSTEM ARCHITECTURE PLAN \u2014 SECONDSELF  **Document Version:** 1.0   **Status:** Approved Technical Architecture   **System Name:** SecondSelf Personal AI Second Brain   **Tech Stack:** Python 3.10+,...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "fdc70e24",
+      "label": "# MISSION PLAN & IMPLEMENTATION ROADMAP \u2014 SECONDSELF",
+      "para": "Projects",
+      "tags": [
+        "ai",
+        "architecture",
+        "devops",
+        "embeddings",
+        "graph",
+        "groq",
+        "python",
+        "rag",
+        "streamlit"
+      ],
+      "summary": "# MISSION PLAN & IMPLEMENTATION ROADMAP \u2014 SECONDSELF",
+      "content_preview": "# MISSION PLAN & IMPLEMENTATION ROADMAP \u2014 SECONDSELF  **Document Version:** 1.0   **Status:** Approved Mission & Execution Plan   **System Name:** SecondSelf \u2014 Personal AI Second Brain   **Timeline:**...",
+      "group": "Projects",
+      "color": "#4CAF50"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1ed3b5b3",
+      "target": "7833144e",
+      "weight": 0.8,
+      "type": "related"
+    },
+    {
+      "source": "e476c9f1",
+      "target": "fdc70e24",
+      "weight": 0.8,
+      "type": "related"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-08-12T15:16:25.651352+00:00",
+    "node_count": 14,
+    "edge_count": 2
+  }
+}
