@@ -12,6 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from lib.llm import classify_content
+from lib.markdown import strip_frontmatter
 from lib.models import WikiNote
 from lib.storage import load_index, read_raw_captures, save_index, write_wiki_note
 
@@ -58,7 +59,8 @@ def _fetch_page_text(url: str) -> str:
 def extract_text_from_raw(meta, content, cfile_path: Path) -> str:
     """Extract clean text from a note, link, PDF, or text-like file."""
     if meta.type == "note":
-        return content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+        text = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
+        return strip_frontmatter(text)
 
     if meta.type == "link":
         text = content if isinstance(content, str) else content.decode("utf-8", errors="ignore")
@@ -79,9 +81,10 @@ def extract_text_from_raw(meta, content, cfile_path: Path) -> str:
                 print(f"Warning: PDF extraction failed for '{cfile_path.name}': {exc}")
             return f"Filename: {meta.original_filename or cfile_path.name}"
         if isinstance(content, str):
-            return content
+            return strip_frontmatter(content) if cfile_path.suffix.lower() in {".md", ".markdown"} else content
         try:
-            return content.decode("utf-8")
+            decoded = content.decode("utf-8")
+            return strip_frontmatter(decoded) if cfile_path.suffix.lower() in {".md", ".markdown"} else decoded
         except UnicodeDecodeError:
             return f"Binary file: {meta.original_filename or cfile_path.name}"
 
@@ -103,6 +106,14 @@ def process_classification() -> int:
             if not extracted:
                 raise ValueError("extracted content is empty")
             classified = classify_content(extracted, source_type=meta.type)
+            override = index.get("classification_overrides", {}).get(meta.id, {})
+            if isinstance(override, dict):
+                if override.get("para") in {"Projects", "Areas", "Resources", "Archives"}:
+                    classified["para"] = override["para"]
+                if isinstance(override.get("tags"), list) and override["tags"]:
+                    classified["tags"] = [str(tag) for tag in override["tags"]]
+                if isinstance(override.get("summary"), str) and override["summary"].strip():
+                    classified["summary"] = override["summary"].strip()
             note_id = meta.id.rsplit("_", 1)[-1]
             note = WikiNote(
                 id=note_id,

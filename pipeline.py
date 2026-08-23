@@ -5,6 +5,7 @@ import argparse
 from build_graph import process_build_graph
 from classify import process_classification
 from link import process_auto_linking
+from obsidian_inbox import ingest_obsidian_inbox
 
 
 def run_pipeline(mode: str = "process") -> dict:
@@ -12,10 +13,18 @@ def run_pipeline(mode: str = "process") -> dict:
     if mode not in {"classify", "link", "graph", "process"}:
         raise ValueError("mode must be classify, link, graph, or process")
 
-    result = {"mode": mode, "classified": 0, "links_added": 0, "graph_nodes": 0, "graph_edges": 0}
+    result = {
+        "mode": mode,
+        "inbox_imported": 0,
+        "classified": 0,
+        "links_added": 0,
+        "graph_nodes": 0,
+        "graph_edges": 0,
+    }
     print(f"=== Starting SecondSelf Pipeline (mode: {mode}) ===")
 
     if mode in {"classify", "process"}:
+        result["inbox_imported"] = ingest_obsidian_inbox()
         result["classified"] = process_classification()
     if mode in {"link", "process"}:
         result["links_added"] = process_auto_linking()

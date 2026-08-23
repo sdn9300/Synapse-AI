@@ -1,6 +1,6 @@
 """
 LLM Generation & Classification Provider for SecondSelf (Phase 2).
-Decoupled generation provider interfacing with Groq API (Llama 3.1 8B Instant)
+Decoupled generation provider interfacing with Groq API
 with intelligent heuristic fallback.
 """
 
@@ -14,33 +14,45 @@ load_dotenv()
 
 
 def call_llm(prompt: str, system_prompt: str = "") -> str:
-    """Call Groq API for text generation using OpenAI-compatible or Groq client."""
+    """Call Groq API for text generation using OpenAI-compatible client with active model fallback."""
     api_key = os.getenv("GROQ_API_KEY", "").strip()
 
     if api_key and api_key != "your_groq_api_key_here":
-        try:
-            import requests
-            headers = {
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            }
-            payload = {
-                "model": "llama-3.1-8b-instant",
-                "messages": [
-                    {"role": "system", "content": system_prompt or "You are an AI Second Brain assistant."},
-                    {"role": "user", "content": prompt},
-                ],
-                "temperature": 0.2,
-                "max_tokens": 1000,
-            }
-            resp = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=30)
-            if resp.status_code == 200:
-                data = resp.json()
-                return data["choices"][0]["message"]["content"].strip()
-            else:
-                print(f"Groq API returned status {resp.status_code}: {resp.text}")
-        except Exception as e:
-            print(f"Warning: Groq API call failed: {e}")
+        import requests
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+        
+        # Currently active Groq model names
+        candidate_models = [
+            "llama-3.3-70b-versatile",
+            "llama-3.1-8b-instant",
+            "llama-3.2-3b-preview",
+            "llama-3.2-1b-preview",
+        ]
+        
+        for model_name in candidate_models:
+            try:
+                payload = {
+                    "model": model_name,
+                    "messages": [
+                        {"role": "system", "content": system_prompt or "You are an AI Second Brain assistant."},
+                        {"role": "user", "content": prompt},
+                    ],
+                    "temperature": 0.2,
+                    "max_tokens": 1000,
+                }
+                resp = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=30)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    return data["choices"][0]["message"]["content"].strip()
+                elif resp.status_code in {400, 404}:
+                    continue  # model deprecated or unavailable, try next active model
+                else:
+                    print(f"Groq API model '{model_name}' returned status {resp.status_code}: {resp.text}")
+            except Exception as e:
+                print(f"Warning: Groq API call failed for model '{model_name}': {e}")
 
     # Fallback response generation if API key not available or request failed
     return ""
@@ -71,11 +83,8 @@ def classify_content(text: str, source_type: str = "note") -> Dict[str, Any]:
                 para = parsed.get("para", "Resources")
                 if para not in ["Projects", "Areas", "Resources", "Archives"]:
                     para = "Resources"
-                raw_tags = parsed.get("tags", [])
-                if isinstance(raw_tags, str):
-                    raw_tags = [raw_tags]
-                tags = [str(tag).strip().lower().replace(" ", "-") for tag in raw_tags if str(tag).strip()]
-                summary = str(parsed.get("summary", "")).strip() or text[:100].replace("\n", " ") + "..."
+                tags = [t.lower().replace(" ", "-") for t in parsed.get("tags", [])]
+                summary = parsed.get("summary", text[:100].replace("\n", " ") + "...")
                 return {"para": para, "tags": tags, "summary": summary}
         except Exception as e:
             print(f"Warning: Failed to parse LLM JSON output: {e}")

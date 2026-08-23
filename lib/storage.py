@@ -189,6 +189,10 @@ def read_wiki_notes() -> List[WikiNote]:
     ensure_directories()
     notes: List[WikiNote] = []
     for filepath in sorted(WIKI_DIR.glob("**/*.md")):
+        # Inbox files are user staging/archival artifacts, not generated notes.
+        relative_path = filepath.relative_to(WIKI_DIR)
+        if "Inbox" in relative_path.parts or relative_path.as_posix() == "START_HERE.md":
+            continue
         try:
             with open(filepath, "r", encoding="utf-8") as handle:
                 raw_text = handle.read()
